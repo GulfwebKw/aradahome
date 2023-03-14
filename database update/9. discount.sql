@@ -1,0 +1,1 @@
+ALTER TABLE `gwc_coupons` ADD `is_zone_free` BOOLEAN NOT NULL DEFAULT FALSE AFTER `is_free`;

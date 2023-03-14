@@ -1,0 +1,2 @@
+ALTER TABLE `gwc_coupons` ADD `is_zone_free` BOOLEAN NOT NULL DEFAULT FALSE AFTER `is_free`;
+ALTER TABLE `gwc_settings` ADD `pos_supervisor_password` VARCHAR(255) NULL DEFAULT NULL AFTER `pos_note_ar`;
