@@ -1576,6 +1576,41 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group">
+                                                <div class="input-group row">
+                                                    <label
+                                                            class="col-10">Show Auto New Tag on product
+                                                        <a href="javascript:;" data-toggle="kt-popover"
+                                                           data-trigger="focus"
+                                                           title="{{ __('adminMessage.note') }}" data-html="true"
+                                                           data-content="Calculate difference Date between create item and now , then show 'NEW' Tag. ">{!! trans('svgicon.help') !!}</a></label>
+                                                    <div class="col-2" align="right">
+                                                            <span class="kt-switch"><label>
+                                                                    <input value="1"
+                                                                           {{ !empty($settingDetails->show_new_tag) ? 'checked' : '' }}
+                                                                           type="checkbox" id="show_new_tag"
+                                                                           name="show_new_tag"><span></span>
+                                                                </label>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"
+                                                                                           style="width:300px;">Days For 'NEW' Tag</span>
+                                                    </div>
+                                                    <input type="number"
+                                                           class="form-control @if ($errors->has('new_tag_days')) is-invalid @endif"
+                                                           name="new_tag_days"
+                                                           value="@if ($settingDetails->new_tag_days){{ $settingDetails->new_tag_days }}@endif">
+                                                    @if ($errors->has('new_tag_days'))
+                                                        <div class="invalid-feedback">{{ $errors->first('new_tag_days') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
                                             <div class="form-group ">
                                                 <h5>Checkout Settings</h5>
                                             </div>

@@ -61,6 +61,7 @@ class AdminSettingsController extends Controller
 			'header_image' => 'mimes:jpg,jpeg,gif,png|max:2048',
 			'item_per_page_front' => 'numeric',
 			'item_per_page_back' => 'numeric',
+			'new_tag_days' => 'numeric',
 			'bestseller_items' => 'numeric',
 			'featured_items' => 'numeric',
 			'latest_items' => 'numeric',
@@ -358,6 +359,7 @@ class AdminSettingsController extends Controller
 			$setting->postknet_note_en    = !empty($request->input('postknet_note_en')) ? $request->input('postknet_note_en') : '';
 			$setting->postknet_note_ar    = !empty($request->input('postknet_note_ar')) ? $request->input('postknet_note_ar') : '';
 			$setting->show_out_of_stock     = !empty($request->input('show_out_of_stock')) ? $request->input('show_out_of_stock') : '0';
+			$setting->show_new_tag     = !empty($request->input('show_new_tag')) ? $request->input('show_new_tag') : '0';
 			$setting->show_all_currencies     = !empty($request->input('show_all_currencies')) ? $request->input('show_all_currencies') : '0';
 
 			$setting->validate_cust_name    = !empty($request->input('validate_cust_name')) ? $request->input('validate_cust_name') : '0';
@@ -368,6 +370,7 @@ class AdminSettingsController extends Controller
 			$setting->validate_cust_hno  = !empty($request->input('validate_cust_hno')) ? $request->input('validate_cust_hno') : '0';
 
 
+            $setting->new_tag_days = $request->input('new_tag_days');
             $setting->pos_note_en = $request->input('pos_note_en');
             $setting->pos_note_ar = $request->input('pos_note_ar');
             $setting->check_out_note_en = $request->input('check_out_note_en');
@@ -377,6 +380,7 @@ class AdminSettingsController extends Controller
 
 			$setting->save();
 			cache()->forget('settingInfoScope');
+			cache()->forget('NewTagDaysSetting');
 			//save logs
 			$key_name   = "setting";
 			$key_id     = $setting->id;

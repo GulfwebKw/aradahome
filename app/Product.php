@@ -78,11 +78,11 @@ class Product extends Model
             }
         }
         
-        if ((int)Settings::find(1)->new_item_badge === 1 && env('NEW_TAG' , 7 ) > 0 and in_array($key , ['caption_en' , 'caption_ar', 'caption_color'])){
+        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 and in_array($key , ['caption_en' , 'caption_ar', 'caption_color'])){
             $caption = parent::getAttribute($key) ;
             if ( $caption == null or empty($caption) or $caption == "" ){ 
                 $created_at = parent::getAttribute('created_at');
-                if ( $created_at and $created_at->diffInDays(\Illuminate\Support\Carbon::now()) + 1 <= env('NEW_TAG' , 7 ) ){
+                if ( $created_at and $created_at->diffInDays(\Illuminate\Support\Carbon::now()) + 1 <= $this->getNewTagDays() ){
                     $return = null ;
                     switch ($key) {
                         case 'caption_en':
@@ -130,18 +130,18 @@ class Product extends Model
                 $data['wholesale_price'] = $price['price'] ?? $price->price ?? $price[0]->price ?? $price;
             }
         }
-        if ((int)Settings::find(1)->new_item_badge === 1 && env('NEW_TAG' , 7 ) > 0 ){
+        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 ){
             $locale = app()->getlocale();
             $diffDays = $data['created_at'] ? Carbon::parse($data['created_at'])->diffInDays(\Illuminate\Support\Carbon::now()) + 1 : 99999;
-            if ( ( $data['caption_en'] == null or empty($data['caption_en']) or $data['caption_en'] == "" )  and $diffDays <= env('NEW_TAG' , 7 ) ){
+            if ( ( $data['caption_en'] == null or empty($data['caption_en']) or $data['caption_en'] == "" )  and $diffDays <= $this->getNewTagDays() ){
                 app()->setlocale("en");
                 $data['caption_en'] = trans('webMessage.new');
             }
-            if (  ( $data['caption_ar'] == null or empty($data['caption_ar']) or $data['caption_ar'] == ""  )  and $diffDays <= env('NEW_TAG' , 7 )  ){ 
+            if (  ( $data['caption_ar'] == null or empty($data['caption_ar']) or $data['caption_ar'] == ""  )  and $diffDays <= $this->getNewTagDays()  ){ 
                 app()->setlocale("ar");
                 $data['caption_ar'] = trans('webMessage.new');
             }
-            if (  ( $data['caption_ar'] == null or empty($data['caption_ar']) or $data['caption_ar'] == ""  ) and ( $data['caption_en'] == null or empty($data['caption_en']) or $data['caption_en'] == "" )  and $diffDays <= env('NEW_TAG' , 7 )  ){ 
+            if (  ( $data['caption_ar'] == null or empty($data['caption_ar']) or $data['caption_ar'] == ""  ) and ( $data['caption_en'] == null or empty($data['caption_en']) or $data['caption_en'] == "" )  and $diffDays <= $this->getNewTagDays()  ){ 
                 $data['caption_color'] = '#ff0000';
             }
             app()->setlocale($locale);
@@ -192,5 +192,14 @@ class Product extends Model
         if ( $justGet )
             return $query->get()->sortBy('inventory.priority');
         return $query->first();
+    }
+    
+    public static function getNewTagDays() {
+        return cache()->remember('NewTagDaysSetting', 15 * 60, function () {
+            $settingInfo = Settings::where("keyname","setting")->first();
+            if ( $settingInfo->show_new_tag and intval($settingInfo->new_tag_days) >= 0 )
+                return intval($settingInfo->new_tag_days) ;
+            return -100;
+        });
     }
 }
