@@ -415,7 +415,7 @@
                         <div class="product_price">
                             @if(!empty($productDetails->countdown_datetime) && strtotime($productDetails->countdown_datetime)>strtotime(date('Y-m-d')))
                                 <span class="price">{{\App\Currency::default()}} <span id="display_price">{{number_format($productDetails->countdown_price,3)}}</span></span></span>
-                                <del>{{\App\Currency::default()}} {{number_format($productDetails->old_price,3)}}</del>
+                                <del id="oldprices">{{\App\Currency::default()}} <span id="display_oldprice">{{number_format($productDetails->old_price,3)}}</span></del>
                                 <div class="countdown_time countdown_style4 mb-4" data-time="{{ $productDetails->countdown_datetime }}"></div>
                                 <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
                                     <link itemprop="url"
@@ -433,7 +433,7 @@
                                       content="{{round($productDetails->countdown_price,3)}} {{\App\Currency::default()}}"/>
                             @elseif ($checkBrandDiscount)
                                 <span class="price">{{\App\Currency::default()}} <span id="display_price">{{number_format($brandDiscountedPrice->price , 3)}}</span></span>
-                                <del>{{\App\Currency::default()}} {{number_format($brandDiscountedPrice->oldPrice , 3 )}}</del>
+                                <del id="oldprices">{{\App\Currency::default()}} <span id="display_oldprice">{{number_format($brandDiscountedPrice->oldPrice , 3 )}}</span></del>
                                 <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
                                     <link itemprop="url"
                                           href="{{url(app()->getLocale().'/directdetails/'.$productDetails->id.'/'.$productDetails->slug)}}"/>
@@ -451,12 +451,13 @@
                             @else
                                 <span class="price">{{\App\Currency::default()}} <span id="display_price">{{number_format($productDetails->retail_price,3)}}</span></span>
                                 @if($productDetails->old_price)
-                                    <del>{{\App\Currency::default()}} {{number_format($productDetails->old_price,3)}}</del>
+                                    <del id="oldprices">{{\App\Currency::default()}} <span id="display_oldprice">{{number_format($productDetails->old_price,3)}}</span></del>
                                     <meta itemprop="sell_on_google_price"
                                           content="{{round($productDetails->old_price,3)}} {{\App\Currency::default()}}"/>
                                     <meta itemprop="sell_on_google_sale_price"
                                           content="{{round($productDetails->retail_price,3)}} {{\App\Currency::default()}}"/>
                                 @else
+                                    <del id="oldprices" style="display: none;">{{\App\Currency::default()}} <span id="display_oldprice"></span></del>
                                     <meta itemprop="sell_on_google_price"
                                           content="{{number_format($productDetails->retail_price,3)}} {{\App\Currency::default()}}"/>
                                 @endif

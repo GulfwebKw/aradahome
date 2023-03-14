@@ -357,7 +357,7 @@ use Illuminate\Support\Facades\Cookie;
 --><script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script defer src="{{url('assets/js/bundle.js')}}"></script>
-<script src="{{url('assets/js/gulfweb.js?v1')}}"></script>
+<script src="{{url('assets/js/gulfweb.js?v2')}}"></script>
 <script>
 gtag('event', 'screen_view', {
   'screen_name' : 'order confirmation'

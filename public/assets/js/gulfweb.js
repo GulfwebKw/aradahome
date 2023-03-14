@@ -394,6 +394,7 @@ $(document).ready(function () {
                     $("#unit_price").val(msg.price);
                     if (msg.old_price != "0") {
                         $("#display_oldprice").html(msg.old_price);
+                        $("#oldprices").show();
                     } else {
                         $("#oldprices").hide();
                     }
@@ -1435,6 +1436,7 @@ $(document).ready(function () {
                 $("#sizeDetails").html(msg.details);
                 if (msg.old_price != "0") {
                     $("#display_oldprice").html(msg.old_price);
+                    $("#oldprices").show();
                 } else {
                     $("#oldprices").hide();
                 }
@@ -1483,6 +1485,7 @@ $(document).ready(function () {
                             $("#other_currency_display_price").html(msg.otherPrice);
                             if (msg.old_price != "0") {
                                 $("#display_oldprice").html(msg.old_price);
+                                $("#oldprices").show();
                             } else {
                                 $("#oldprices").hide();
                             }
