@@ -2747,6 +2747,7 @@ class AdminProductController extends Controller
 		$product->caption_en       = !empty($request->input('caption_en')) ? $request->input('caption_en') : '';
 		$product->caption_ar       = !empty($request->input('caption_ar')) ? $request->input('caption_ar') : '';
 		$product->caption_color    = !empty($request->input('caption_color')) ? $request->input('caption_color') : '';
+        $product->newtag           = !empty($request->input('newtag')) ? $request->input('newtag') : '0';
 
 		if (!empty($request->input('youtube_url'))) {
 			$product->youtube_url_id   = $this->extractYoutubeId($request->input('youtube_url'));

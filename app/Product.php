@@ -78,7 +78,7 @@ class Product extends Model
             }
         }
         
-        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 and in_array($key , ['caption_en' , 'caption_ar', 'caption_color'])){
+        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 and in_array($key , ['caption_en' , 'caption_ar', 'caption_color']) and  (int) parent::getAttribute('newtag') === 1 ){
             $caption = parent::getAttribute($key) ;
             if ( $caption == null or empty($caption) or $caption == "" ){ 
                 $created_at = parent::getAttribute('created_at');
@@ -130,7 +130,7 @@ class Product extends Model
                 $data['wholesale_price'] = $price['price'] ?? $price->price ?? $price[0]->price ?? $price;
             }
         }
-        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 ){
+        if ((int)Settings::find(1)->new_item_badge === 1 && $this->getNewTagDays() > 0 && (int) $data['newtag'] === 1 ){
             $locale = app()->getlocale();
             $diffDays = $data['created_at'] ? Carbon::parse($data['created_at'])->diffInDays(\Illuminate\Support\Carbon::now()) + 1 : 99999;
             if ( ( $data['caption_en'] == null or empty($data['caption_en']) or $data['caption_en'] == "" )  and $diffDays <= $this->getNewTagDays() ){

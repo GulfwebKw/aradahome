@@ -1898,6 +1898,20 @@
                                                     <div class="invalid-feedback">{{ $errors->first('caption_color') }}</div>
                                                 @endif
                                             </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-4">
+                                                <div class="input-group row">
+                                                    <label class="col-10">Show Auto New Tag on product</label>
+                                                    <div class="col-2" align="right">
+                                                        <span class="kt-switch">
+                                                            <label>
+                                                                <input value="1" @if( $editproduct->newtag) checked="" @endif type="checkbox" name="newtag"><span></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
 
